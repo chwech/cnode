@@ -1,0 +1,12 @@
+body{
+  font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,sans-serif!important;
+}
+ul,
+h2{
+  margin:0;
+  padding:0;
+}
+
+a{
+  text-decoration: none;
+}
