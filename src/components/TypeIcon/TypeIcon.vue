@@ -1,6 +1,6 @@
 <template>
   <span class="icon-type">
-    {{iconText}}
+    {{type | iconText}}
   </span>
 </template>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -21,20 +21,24 @@
 </style>
 <script>
   export default {
-    data () {
-      return {
-        tab: {
-          good: '精华',
-          ask: '问答',
-          share: '分享',
-          job: '招聘',
-          top: '置顶'
+    props: ['type'],
+    filters: {
+      iconText (type) {
+        if (type.top) {
+          return '置顶'
         }
-      }
-    },
-    computed: {
-      iconText () {
-        return this.tab.good
+        if (type.good) {
+          return '精华'
+        }
+        if (type.tab === 'ask') {
+          return '问答'
+        }
+        if (type.tab === 'share') {
+          return '分享'
+        }
+        if (type.tab === 'job') {
+          return '招聘'
+        }
       }
     }
   }

@@ -4,27 +4,23 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import All from 'components/All/All'
-import Good from 'components/Good/Good'
-import Ask from 'components/Ask/Ask'
-import Share from 'components/Share/Share'
-import Job from 'components/Job/Job'
+import content from 'components/content/content'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 const routes = [
-  { 'path': '/all', component: All },
-  { 'path': '/good', component: Good },
-  { 'path': '/ask', component: Ask },
-  { 'path': '/share', component: Share },
-  { 'path': '/job', component: Job }
+  { 'path': '/topics', component: content },
+  { 'path': '/topics?tab=good', component: content },
+  { 'path': '/topics?tab=share', component: content },
+  { 'path': '/topics?tab=ask', component: content },
+  { 'path': '/topics?tab=job', component: content }
 ]
 
 const router = new VueRouter({
   linkActiveClass: 'active',
   routes
 })
-router.push('/all')
+router.push('/topics')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

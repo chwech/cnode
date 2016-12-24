@@ -3,23 +3,23 @@
     <div class="header">
       <ul>
         <li>
-          <router-link to='/all'>全部</router-link>
+          <router-link to='/topics' exact>全部</router-link>
         </li>
-        <li @click='toGood'>
-          <router-link to='/good'>精华</router-link>
+        <li>
+          <router-link to='/topics?tab=good' exact>精华</router-link>
         </li>
-        <li @click="toShare">
-          <router-link to='/share'>分享</router-link>
+        <li>
+          <router-link to='/topics?tab=share' exact>分享</router-link>
         </li>
-        <li @click="toAsk">
-          <router-link to='/ask'>问答</router-link>
+        <li>
+          <router-link to='/topics?tab=ask' exact>问答</router-link>
         </li>
-        <li @click="toJob">
-          <router-link to='/job'>招聘</router-link>
+        <li>
+          <router-link to='/topics?tab=job' exact>招聘</router-link>
         </li>
       </ul>
     </div>
-    <router-view :data="data" :good="good" :share="share" :ask="ask" :job="job"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 <style lang="stylus">
@@ -44,70 +44,5 @@
               background-color: #80bd01
 </style>
 <script>
-  const OK = true
-
-  export default {
-
-    data () {
-      return {
-        data: {},
-        good: {},
-        share: {},
-        ask: {},
-        job: {}
-      }
-    },
-    methods: {
-      toGood () {
-        console.log('hi')
-        this.$http.get('https://cnodejs.org/api/v1/topics?limit=20&tab=good')
-        .then((response) => {
-          response = response.body
-          if (response.success === OK) {
-            this.good = response.data
-          }
-        })
-      },
-      toShare () {
-        console.log('hi')
-        this.$http.get('https://cnodejs.org/api/v1/topics?limit=20&tab=share')
-        .then((response) => {
-          response = response.body
-          if (response.success === OK) {
-            this.share = response.data
-          }
-        })
-      },
-      toAsk () {
-        console.log('hi')
-        this.$http.get('https://cnodejs.org/api/v1/topics?limit=20&tab=ask')
-        .then((response) => {
-          response = response.body
-          if (response.success === OK) {
-            this.ask = response.data
-          }
-        })
-      },
-      toJob () {
-        console.log('hi')
-        this.$http.get('https://cnodejs.org/api/v1/topics?limit=20&tab=job')
-        .then((response) => {
-          response = response.body
-          if (response.success === OK) {
-            this.job = response.data
-          }
-        })
-      }
-    },
-    created () {
-      this.$http.get('https://cnodejs.org/api/v1/topics?limit=20')
-      .then((response) => {
-        response = response.body
-        if (response.success === OK) {
-          this.data = response.data
-          // 处理数据
-        }
-      })
-    }
-  }
+  export default {}
 </script>

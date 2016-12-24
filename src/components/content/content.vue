@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data">
+  <div>
     <ul>
       <li v-for="item of data" class="topics">
         <img :src="item.author.avatar_url" width=30 height=30>
@@ -7,7 +7,7 @@
           <span class="count_of_replies">{{item.reply_count}}</span>
           <span class="count_of_visits">/{{item.visit_count}}</span>
         </div>
-        <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]"></TypeIcon>
+        <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
         <a href="https://cnodejs.org/api/v1/topics/581b0c4ebb9452c9052e7acb" class="title">
           {{item.title}}
         </a>
@@ -59,10 +59,42 @@
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
   import lastReplyTime from 'src/js/filters'
+  const OK = true
+  const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=20'
   export default {
-    props: ['data'],
+  // 注册组件
     components: {
       TypeIcon
+    },
+    data () {
+      return {
+        data: null
+      }
+    },
+    created () {
+      this.requestData(allDataUrl)
+    },
+    watch: {
+      '$route' (to, from) {
+        this.data = null
+        for (const key in to.query) {
+          var query = key + '=' + to.query[key]
+        }
+        const url = allDataUrl + '&' + query
+        console.log(url)
+        this.requestData(url)
+      }
+    },
+    methods: {
+      requestData (url) {
+        this.$http.get(url)
+        .then((response) => {
+          response = response.body
+          if (response.success === OK) {
+            this.data = response.data
+          }
+        })
+      }
     },
     filters: {
       lastReplyTime
