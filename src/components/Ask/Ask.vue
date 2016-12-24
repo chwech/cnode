@@ -11,6 +11,9 @@
         <a href="https://cnodejs.org/api/v1/topics/581b0c4ebb9452c9052e7acb" class="title">
           {{item.title}}
         </a>
+        <time class="last-reply-time">
+          {{item.last_reply_at | lastReplyTime }}
+        </time>
       </li>
     </ul>
   </div>
@@ -19,10 +22,14 @@
 </style>
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
+  import lastReplyTime from 'src/js/filters'
   export default {
     props: ['data', 'ask'],
     components: {
       TypeIcon
+    },
+    filters: {
+      lastReplyTime
     }
   }
 </script>

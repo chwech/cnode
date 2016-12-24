@@ -45,6 +45,7 @@
 </style>
 <script>
   const OK = true
+
   export default {
 
     data () {
@@ -104,6 +105,7 @@
         response = response.body
         if (response.success === OK) {
           this.data = response.data
+          // 处理数据
         }
       })
     }
