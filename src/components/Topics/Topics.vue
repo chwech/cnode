@@ -19,6 +19,7 @@
         </li>
       </ul>
     </div>
+
     <router-view></router-view>
   </div>
 </template>
@@ -42,6 +43,7 @@
               border-radius: 3px
               color: #fff
               background-color: #80bd01
+
 </style>
 <script>
   export default {}

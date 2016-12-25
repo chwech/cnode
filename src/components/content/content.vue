@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div v-if='loading'>拼命加载中...</div>
+    <div v-if='error'>加载错误</div>
     <ul>
       <li v-for="item of data" class="topics">
         <img :src="item.author.avatar_url" width=30 height=30>
@@ -68,6 +70,8 @@
     },
     data () {
       return {
+        loading: false,
+        error: null,
         data: null
       }
     },
@@ -76,7 +80,8 @@
     },
     watch: {
       '$route' (to, from) {
-        this.data = null
+        this.error = this.data = null
+        this.loading = true
         for (const key in to.query) {
           var query = key + '=' + to.query[key]
         }
@@ -93,6 +98,11 @@
           if (response.success === OK) {
             this.data = response.data
           }
+          this.loading = false
+        }).catch((response) => {
+          console.log(response)
+          this.error = true
+          this.loading = false
         })
       }
     },
