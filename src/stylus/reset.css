@@ -1,6 +1,11 @@
 body{
   font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,sans-serif!important;
 }
+h1,
+h2,
+h3{
+  line-height: 40px
+}
 ul,
 h2{
   margin:0;

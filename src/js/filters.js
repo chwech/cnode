@@ -22,7 +22,7 @@ export default function lastReplyTime (lastReplyAt) {
     lastReplyAt = dayTime + '天前'
   } else {
     const monthTime = Math.floor(lastReplyTime / month)
-    lastReplyAt = monthTime + '月前'
+    lastReplyAt = monthTime + '个月前'
   }
   return lastReplyAt
 }

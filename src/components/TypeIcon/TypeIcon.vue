@@ -1,10 +1,12 @@
 <template>
   <span class="icon-type">
-    {{type | iconText}}
+    {{type | type2Chinese}}
   </span>
 </template>
 <style lang="stylus" rel="stylesheet/stylus">
   .icon-type
+    display: inline-block
+    width: 24px
     border-radius: 3px
     padding: 2px 4px
     font-size: 12px
@@ -20,26 +22,11 @@
     color: #999
 </style>
 <script>
+  import type2Chinese from 'src/js/type'
   export default {
     props: ['type'],
     filters: {
-      iconText (type) {
-        if (type.top) {
-          return '置顶'
-        }
-        if (type.good) {
-          return '精华'
-        }
-        if (type.tab === 'ask') {
-          return '问答'
-        }
-        if (type.tab === 'share') {
-          return '分享'
-        }
-        if (type.tab === 'job') {
-          return '招聘'
-        }
-      }
+      type2Chinese
     }
   }
 </script>

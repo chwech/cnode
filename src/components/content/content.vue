@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if='loading'>拼命加载中...</div>
-    <div v-if='error'>加载错误</div>
+    <div v-if='error'>加载失败，请检查你的网络</div>
     <ul>
       <li v-for="item of data" class="topics">
         <img :src="item.author.avatar_url" width=30 height=30>
@@ -10,9 +10,7 @@
           <span class="count_of_visits">/{{item.visit_count}}</span>
         </div>
         <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
-        <a href="https://cnodejs.org/api/v1/topics/581b0c4ebb9452c9052e7acb" class="title">
-          {{item.title}}
-        </a>
+        <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>{{item.title}}</router-link>
         <time class="last-reply-time">
           {{item.last_reply_at | lastReplyTime }}
         </time>
@@ -61,7 +59,8 @@
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
   import lastReplyTime from 'src/js/filters'
-  const OK = true
+  import requestData from 'src/js/http'
+
   const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=20'
   export default {
   // 注册组件
@@ -80,8 +79,6 @@
     },
     watch: {
       '$route' (to, from) {
-        this.error = this.data = null
-        this.loading = true
         for (const key in to.query) {
           var query = key + '=' + to.query[key]
         }
@@ -91,20 +88,7 @@
       }
     },
     methods: {
-      requestData (url) {
-        this.$http.get(url)
-        .then((response) => {
-          response = response.body
-          if (response.success === OK) {
-            this.data = response.data
-          }
-          this.loading = false
-        }).catch((response) => {
-          console.log(response)
-          this.error = true
-          this.loading = false
-        })
-      }
+      requestData
     },
     filters: {
       lastReplyTime

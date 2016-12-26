@@ -5,6 +5,7 @@ import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import content from 'components/content/content'
+import TopicsDetail from 'components/topicsDetail/TopicsDetail'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -13,7 +14,8 @@ const routes = [
   { 'path': '/topics?tab=good', component: content },
   { 'path': '/topics?tab=share', component: content },
   { 'path': '/topics?tab=ask', component: content },
-  { 'path': '/topics?tab=job', component: content }
+  { 'path': '/topics?tab=job', component: content },
+  { 'path': '/topics/:id', name: 'topicsDetail', component: TopicsDetail }
 ]
 
 const router = new VueRouter({
