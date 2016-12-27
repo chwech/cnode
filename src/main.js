@@ -4,18 +4,19 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import content from 'components/content/content'
+import vContent from 'components/content/v-content'
 import TopicsDetail from 'components/topicsDetail/TopicsDetail'
-
+import user from 'components/user/user'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 const routes = [
-  { 'path': '/topics', component: content },
-  { 'path': '/topics?tab=good', component: content },
-  { 'path': '/topics?tab=share', component: content },
-  { 'path': '/topics?tab=ask', component: content },
-  { 'path': '/topics?tab=job', component: content },
-  { 'path': '/topics/:id', name: 'topicsDetail', component: TopicsDetail }
+  { 'path': '/topics', component: vContent },
+  { 'path': '/topics?tab=good', component: vContent },
+  { 'path': '/topics?tab=share', component: vContent },
+  { 'path': '/topics?tab=ask', component: vContent },
+  { 'path': '/topics?tab=job', component: vContent },
+  { 'path': '/topics/:id', name: 'topicsDetail', component: TopicsDetail },
+  { 'path': '/user/:loginname', name: 'user', component: user }
 ]
 
 const router = new VueRouter({

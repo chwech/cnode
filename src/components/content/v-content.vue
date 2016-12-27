@@ -4,7 +4,9 @@
     <div v-if='error'>加载失败，请检查你的网络</div>
     <ul>
       <li v-for="item of data" class="topics">
-        <img :src="item.author.avatar_url" width=30 height=30>
+        <router-link :to="{name:'user', params: {loginname: item.author.loginname}}">
+          <img :src="item.author.avatar_url" width=30 height=30>
+        </router-link>
         <div class="count-wrap">
           <span class="count_of_replies">{{item.reply_count}}</span>
           <span class="count_of_visits">/{{item.visit_count}}</span>
@@ -18,12 +20,11 @@
     </ul>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   .topics
     display: block
     padding: 10px
     height: 30px
-    font-size: 0
     img
       vertical-align: middle
       font-size: 0
@@ -61,9 +62,8 @@
   import lastReplyTime from 'src/js/filters'
   import requestData from 'src/js/http'
 
-  const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=20'
+  const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=40'
   export default {
-  // 注册组件
     components: {
       TypeIcon
     },
@@ -76,6 +76,13 @@
     },
     created () {
       this.requestData(allDataUrl)
+      this.$http.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: 'da32207e-9e45-4f08-b439-a869532e6086'})
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((response) => {
+          console.log(response)
+        })
     },
     watch: {
       '$route' (to, from) {

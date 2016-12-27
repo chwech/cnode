@@ -14,7 +14,7 @@
         </span>
           <span>
           作者
-          <a>{{data.author.loginname}}</a>
+          <router-link :to="{name:'user',params: {loginname: data.author.loginname}}">{{data.author.loginname}}</router-link>
         </span>
           <span>
           {{data.visit_count}}次浏览
@@ -30,10 +30,28 @@
       </div>
       <div class="topicsDetail" v-html='data.content'>
       </div>
+      <div class="comments">
+        <div class="comments-header">{{data.replies.length}}回复</div>
+        <ul>
+          <li v-for='(comment, index) of data.replies' class="coments-content">
+            <router-link :to="{name:'user',params: {loginname: comment.author.loginname}}">
+              <img :src='comment.author.avatar_url' width=30 height=30 style='border-radius: 3px'>
+            </router-link>
+            <router-link class="author-id" :to="{name:'user',params: {loginname: comment.author.loginname}}">
+              {{comment.author.loginname}}
+            </router-link>
+            <a>{{index + 1}}楼•{{comment.create_at | creatAt}}</a>
+            <span>{{comment.ups.length}}赞</span>
+            <div class="comments-content" v-html='comment.content'>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
+
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 .topics
   .loading
   .error
@@ -80,6 +98,18 @@
         margin: 30px 0 15px
         border-bottom: 1px solid #eee
 
+  .comments
+    .comments-header
+      padding: 10px
+      background-color: #f6f6f6
+      border-radius: 3px 3px 0 0
+      font-size: 14px
+    .coments-content
+      padding: 10px
+      border-top: 1px solid #f0f0f0
+      background-color: #fff
+
+
 </style>
 
 <script>
@@ -100,10 +130,7 @@
       }
     },
     created () {
-      console.log(this.$route)
-      console.log(this.$route.params.id)
       this.requestData(api + this.$route.params.id)
-      // this.requestData('https://cnodejs.org/api/v1/topic/5433d5e4e737cbe96dcef312')
     },
     methods: {
       requestData
