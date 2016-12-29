@@ -1,6 +1,6 @@
 <template>
   <div class="topics">
-    <div v-if='loading' class="loading">拼命加载中...</div>
+    <loading :show='loading' :text='loadingText'></loading>
     <div v-if='error' class="error">加载失败，请检查你的网络</div>
     <div v-if='data'>
       <div class="header">
@@ -113,14 +113,17 @@
 </style>
 
 <script>
-  import requestData from 'src/js/http'
+  import loading from 'vux-components/loading'
+
   import TypeIcon from 'components/TypeIcon/TypeIcon'
+  import requestData from 'src/js/http'
   import creatAt from 'src/js/filters'
   import type2Chinese from 'src/js/type'
   const api = 'https://cnodejs.org/api/v1/topic/'
   export default {
     components: {
-      TypeIcon
+      TypeIcon,
+      loading
     },
     data () {
       return {

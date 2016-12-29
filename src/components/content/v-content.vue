@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if='loading'>拼命加载中...</div>
+    <loading :show='loading' :text='loadingText'></loading>
     <div v-if='error'>加载失败，请检查你的网络</div>
     <ul>
       <li v-for="item of data" class="topics">
@@ -21,6 +21,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import '~vux/dist/vux.css'
   .topics
     display: block
     padding: 10px
@@ -59,30 +60,26 @@
 </style>
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
+  import loading from 'vux-components/loading'
   import lastReplyTime from 'src/js/filters'
   import requestData from 'src/js/http'
-
   const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=40'
   export default {
+    name: 'v-content',
     components: {
-      TypeIcon
+      TypeIcon,
+      loading
     },
     data () {
       return {
         loading: false,
+        loadingText: '拼命加载中',
         error: null,
         data: null
       }
     },
     created () {
       this.requestData(allDataUrl)
-      this.$http.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: 'da32207e-9e45-4f08-b439-a869532e6086'})
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((response) => {
-          console.log(response)
-        })
     },
     watch: {
       '$route' (to, from) {

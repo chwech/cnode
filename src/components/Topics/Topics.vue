@@ -18,9 +18,8 @@
           <router-link to='/topics?tab=job' exact>招聘</router-link>
         </li>
       </ul>
-      <a href="https://github.com/login/oauth/authorize?client_id=fd59fda35da3a3e8fb68&state=ok&redirect_uri=http://127.0.0.1:8080/" target="_blank">登录</a>
+      <router-link to="/login">登录</router-link>
     </div>
-
     <router-view></router-view>
   </div>
 </template>
@@ -47,5 +46,6 @@
 
 </style>
 <script>
-  export default {}
+  export default {
+  }
 </script>

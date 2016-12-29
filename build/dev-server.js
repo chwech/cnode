@@ -7,7 +7,8 @@ var webpack = require('webpack')
 var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
-
+var https = require('https')
+var http = require('http')
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // Define HTTP proxies to your custom API backend
@@ -16,6 +17,22 @@ var proxyTable = config.dev.proxyTable
 
 
 var app = express()
+var OAuthConfig = {
+  GITHUB_CLIENT_ID: 'fd59fda35da3a3e8fb68',
+  GITHUB_CLIENT_SECRET: '064fd5d5ff2ad915a8124951aa2dc3cf949371ab',
+  GITHUB_REDIRECT_URI: 'http://127.0.0.1:8080/loginAfter'
+}
+app.get('/auth/github', function(req, res) {
+  var dataStr = (new Date()).valueOf()
+  var path = 'https://github.com/login/oauth/authorize'
+  path += '?client_id=' + OAuthConfig.GITHUB_CLIENT_ID
+  path += '&redirect_uri=' + OAuthConfig.GITHUB_REDIRECT_URI
+  // path += '&scope=' + OAuthConfig.GITHUB_CLIENT_SCOPE
+  path += '&state='+ dataStr
+  // 重定向到https://github.com/login/oauth/authorize
+  res.redirect(path);
+})
+// fd59fda35da3a3e8fb68&state=ok&redirect_uri=http://127.0.0.1:8080/
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
