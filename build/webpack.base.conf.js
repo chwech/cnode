@@ -27,7 +27,8 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
-      'vux-components': 'vux/src/components/'
+      'vux-components': 'vux/src/components/',
+      'vuxx-components': 'vuxx/src/components/'
     }
   },
   resolveLoader: {
@@ -49,6 +50,10 @@ module.exports = {
       }
     ],
     loaders: [
+      {
+        test: /vuxx.src.*?js$/,
+        loader: 'babel'
+      },
       {
         test: /vux.src.*?js$/,
         loader: 'babel'

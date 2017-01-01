@@ -1,18 +1,24 @@
 <template>
   <div>
     <loading :show='loading' :text='loadingText'></loading>
-    <div v-if='error'>加载失败，请检查你的网络</div>
+    <toast :show='error' type='text' width='15em'>网络错误，加载失败</toast>
     <ul>
       <li v-for="item of data" class="topics">
         <router-link :to="{name:'user', params: {loginname: item.author.loginname}}">
           <img :src="item.author.avatar_url" width=30 height=30>
         </router-link>
         <div class="count-wrap">
-          <span class="count_of_replies">{{item.reply_count}}</span>
-          <span class="count_of_visits">/{{item.visit_count}}</span>
+          <span class="count_of_replies">
+            {{item.reply_count}}
+          </span>
+          <span class="count_of_visits">
+            /{{item.visit_count}}
+          </span>
         </div>
         <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
-        <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>{{item.title}}</router-link>
+        <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>
+          {{item.title}}
+        </router-link>
         <time class="last-reply-time">
           {{item.last_reply_at | lastReplyTime }}
         </time>
@@ -21,7 +27,6 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import '~vux/dist/vux.css'
   .topics
     display: block
     padding: 10px
@@ -60,7 +65,8 @@
 </style>
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
-  import loading from 'vux-components/loading'
+  import loading from 'vuxx-components/loading'
+  import toast from 'vuxx-components/toast'
   import lastReplyTime from 'src/js/filters'
   import requestData from 'src/js/http'
   const allDataUrl = 'https://cnodejs.org/api/v1/topics?limit=40'
@@ -68,7 +74,8 @@
     name: 'v-content',
     components: {
       TypeIcon,
-      loading
+      loading,
+      toast
     },
     data () {
       return {

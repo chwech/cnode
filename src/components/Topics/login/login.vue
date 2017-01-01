@@ -2,7 +2,7 @@
 <div class="login">
   <div class="login-header">登录</div>
   <div class="login-panel">
-    <input type="text" placeholder="accessToken" v-model='value'>
+    <input type="text" placeholder="accessToken" v-model='value1'>
     <button @click='submit'>登录</button>
   </div>
 </div>
@@ -34,10 +34,9 @@
   export default {
     data () {
       return {
-        value: ''
+        value1: ''
       }
     },
-
     methods: {
       submit () {
         this.$http.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: this.value})

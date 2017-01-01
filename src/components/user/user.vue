@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div v-if="loading">拼命加载中。。。</div>
-  <div v-if="error">加载失败</div>
+  <loading :show='loading' :text='loadingText'></loading>
+  <toast :show='error' type='text' width='15em'>网络错误，加载失败</toast>
   <div v-if='data'>
     <div class="userinfo">
       <img :src='data.avatar_url'>
@@ -60,16 +60,21 @@
 </style>
 <script>
   import TypeIcon from 'components/TypeIcon/TypeIcon'
+  import loading from 'vuxx-components/loading'
+  import toast from 'vuxx-components/toast'
   import requestData from 'src/js/http'
   import creatAt from 'src/js/filters'
   const userURL = 'https://cnodejs.org/api/v1/user/'
   export default {
     components: {
-      TypeIcon
+      TypeIcon,
+      loading,
+      toast
     },
     data () {
       return {
         data: null,
+        loadingText: '拼命加载中',
         loading: false,
         error: null
       }

@@ -1,13 +1,13 @@
 <template>
   <div class="topics">
     <loading :show='loading' :text='loadingText'></loading>
-    <div v-if='error' class="error">加载失败，请检查你的网络</div>
+    <toast :show='error' type='text' width='15em'>网络错误，加载失败</toast>
     <div v-if='data'>
       <div class="header">
         <TypeIcon :type='data' :class="[{good: data.good, top: data.top}, data.tab]"></TypeIcon>
         <span class="title">
         {{data.title}}
-      </span>
+        </span>
         <div class="message">
         <span>
           发布于{{data.create_at | creatAt}}
@@ -113,8 +113,8 @@
 </style>
 
 <script>
-  import loading from 'vux-components/loading'
-
+  import loading from 'vuxx-components/loading'
+  import toast from 'vuxx-components/toast'
   import TypeIcon from 'components/TypeIcon/TypeIcon'
   import requestData from 'src/js/http'
   import creatAt from 'src/js/filters'
@@ -123,11 +123,13 @@
   export default {
     components: {
       TypeIcon,
-      loading
+      loading,
+      toast
     },
     data () {
       return {
         loading: false,
+        loadingText: '拼命加载中',
         error: null,
         data: null
       }
