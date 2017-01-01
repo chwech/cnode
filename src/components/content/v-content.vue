@@ -2,41 +2,45 @@
   <div>
     <loading :show='loading' :text='loadingText'></loading>
     <toast :show='error' type='text' width='15em'>网络错误，加载失败</toast>
-    <ul>
-      <li v-for="item of data" class="topics">
-        <router-link :to="{name:'user', params: {loginname: item.author.loginname}}">
-          <img :src="item.author.avatar_url" width=30 height=30>
-        </router-link>
-        <div class="count-wrap">
-          <span class="count_of_replies">
-            {{item.reply_count}}
-          </span>
-          <span class="count_of_visits">
-            /{{item.visit_count}}
-          </span>
-        </div>
-        <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
-        <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>
-          {{item.title}}
-        </router-link>
-        <time class="last-reply-time">
-          {{item.last_reply_at | lastReplyTime }}
-        </time>
-      </li>
-    </ul>
+    <flexbox orient="vertical" :margin-left=0>
+      <flexbox-item v-for="item of data" class="topics">
+        <flexbox>
+
+            <router-link :to="{name:'user', params: {loginname: item.author.loginname}}">
+              <img :src="item.author.avatar_url" width=30 height=30>
+            </router-link>
+          <div class="count-wrap">
+            <span class="count_of_replies">
+              {{item.reply_count}}
+            </span>
+            <span class="count_of_visits">
+              /{{item.visit_count}}
+            </span>
+          </div>
+
+            <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
+
+          <flexbox-item style='margin-left: 0'>
+            <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>
+              {{item.title}}
+            </router-link>
+          </flexbox-item>
+
+            <time class="last-reply-time">
+              {{item.last_reply_at | lastReplyTime }}
+            </time>
+
+        </flexbox>
+      </flexbox-item>
+    </flexbox>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .topics
-    display: block
-    padding: 10px
-    height: 30px
     img
       vertical-align: middle
       font-size: 0
     .title
-      width: 70%
-      margin-left: 10px
+      width: 100%
       display: inline-block
       font-size: 16px
       font-weight: normal
@@ -64,6 +68,8 @@
         vertical-align: middle
 </style>
 <script>
+  import flexbox from 'vuxx-components/flexbox/flexbox'
+  import flexboxItem from 'vuxx-components/flexbox/flexbox-item'
   import TypeIcon from 'components/TypeIcon/TypeIcon'
   import loading from 'vuxx-components/loading'
   import toast from 'vuxx-components/toast'
@@ -75,7 +81,9 @@
     components: {
       TypeIcon,
       loading,
-      toast
+      toast,
+      flexbox,
+      'flexbox-item': flexboxItem
     },
     data () {
       return {
