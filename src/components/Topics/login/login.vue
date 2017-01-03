@@ -1,9 +1,11 @@
 <template>
 <div class="login">
-  <divider><span style="color: #80bd01">登录</span></divider>
+  <divider>
+    <span style="color: #80bd01">登录</span>
+  </divider>
   <div class="login-panel">
-    <input type="text" placeholder="accessToken" v-model='value1'>
-    <button @click='submit'>登录</button>
+    <input type="text" placeholder="accessToken" v-model='value'>
+    <a @click='login'>登录</a>
   </div>
 </div>
 </template>
@@ -38,14 +40,18 @@
     },
     data () {
       return {
-        value1: ''
+        value: ''
       }
     },
     methods: {
-      submit () {
+      login () {
         this.$http.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: this.value})
           .then((response) => {
-            console.log(response.body)
+            console.log(response)
+            this.$router.push({name: 'user', params: {loginname: response.body.loginname}})
+          })
+          .catch((response) => {
+            console.log(response)
           })
       }
     }

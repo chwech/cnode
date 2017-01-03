@@ -1,6 +1,6 @@
 <template>
   <div class="content-wraper">
-    <sticky>
+    <sticky class='vux-fixed'>
       <x-header
         :left-options="{backText: backText, showBack: showBack}"
         style='background-color: #444'
@@ -26,7 +26,10 @@
         </tab-item>
       </tab>
     </sticky>
-    <router-view></router-view>
+    <router-view
+      style='margin-top: 100px'
+      v-touch:swiperight='test'
+    ></router-view>
   </div>
 </template>
 <style lang="stylus" scoped>
@@ -56,7 +59,11 @@
       sticky,
       'tab-item': tabItem,
       'x-header': xHeader
-
+    },
+    methods: {
+      test () {
+        console.log('test')
+      }
     }
   }
 </script>

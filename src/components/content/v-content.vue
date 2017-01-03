@@ -5,10 +5,10 @@
     <flexbox orient="vertical" :margin-left=0>
       <flexbox-item v-for="item of data" class="topics">
         <flexbox>
-
-            <router-link :to="{name:'user', params: {loginname: item.author.loginname}}">
-              <img :src="item.author.avatar_url" width=30 height=30>
-            </router-link>
+          <router-link
+            :to="{name:'user', params: {loginname: item.author.loginname}}"
+            ><img :src="item.author.avatar_url" width=30 height=30>
+          </router-link>
           <div class="count-wrap">
             <span class="count_of_replies">
               {{item.reply_count}}
@@ -17,19 +17,17 @@
               /{{item.visit_count}}
             </span>
           </div>
-
-            <TypeIcon :class="[{good: item.good, top: item.top}, item.tab]" :type="item"></TypeIcon>
-
+          <TypeIcon
+            :class="[{good: item.good, top: item.top}, item.tab]"
+            :type="item"></TypeIcon>
           <flexbox-item style='margin-left: 0'>
             <router-link :to="{name: 'topicsDetail',params: {id:item.id}}" exact class='title'>
               {{item.title}}
             </router-link>
           </flexbox-item>
-
-            <time class="last-reply-time">
-              {{item.last_reply_at | lastReplyTime }}
-            </time>
-
+          <time class="last-reply-time">
+            {{item.last_reply_at | lastReplyTime }}
+          </time>
         </flexbox>
       </flexbox-item>
     </flexbox>
