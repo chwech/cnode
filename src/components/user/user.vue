@@ -7,7 +7,7 @@
       <img :src='data.avatar_url'>
       <span>{{data.loginname}}</span>
       <p>{{data.score}}积分</p>
-      <p><a :href="'https://github.com/' + data.githubUsername" target="_blank">{{data.githubUsername}}</p>
+      <p><a :href="'https://github.com/' + data.githubUsername" target="_blank">{{data.githubUsername}}</a></p>
       <p>注册时间{{data.create_at | creatAt}}</p>
     </div>
     <div class="recent-topics">
