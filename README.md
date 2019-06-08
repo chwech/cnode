@@ -1,18 +1,14 @@
-# cnode-vue
+3年前(现2019)学vue的时候写的练习项目，很怀念。当时只做了帖子简单数据的获取展示，token登录，现决定重新完善功能。
 
-> cnode webapp
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# TODO
+- [] 主题列表
+- [] 主题详情
+- [] 扫码登录
+- [] 个人中心
+- [] 收藏
+  - [] 收藏列表
+  - [] 收藏主题
+  - [] 取消收藏
+- [] 消息通知
+  - [] 获取未读和已读消息
+  - [] 标记已读
